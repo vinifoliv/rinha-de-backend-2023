@@ -1,0 +1,18 @@
+{
+  "name": "rinha-de-backend-2023",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "MIT",
+  "description": "API desenvolvida para a rinha de backend, edição 2023 (sim, estou um ano atrasado).",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
+  }
+}
