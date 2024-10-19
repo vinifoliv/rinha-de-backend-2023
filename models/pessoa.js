@@ -11,8 +11,6 @@ class Pessoa {
     async insert() {
         const database = new Database();
         const client = await database.pool.connect();
-        console.log('hello')
-
 
         const text = 'INSERT INTO pessoas(apelido, nome, nascimento, stack) VALUES($1, $2, $3, $4) RETURNING id';
         const values = [
@@ -24,10 +22,29 @@ class Pessoa {
 
         try {
             const result = await client.query(text, values);
-            return (result.rows[0]);
+            return result.rows[0];
         }
         catch (error) {
             throw new Error(error);
+        }
+        finally {
+            client.release();
+        }
+    }
+
+    static async readById(id) {
+        const database = new Database();
+        const client = await database.pool.connect();
+
+        const text = 'SELECT * FROM pessoas WHERE id = $1';
+        const values = [id];
+
+        try {
+            const result = await client.query(text, values);
+            return result.rows[0];
+        }
+        catch (error) {
+            throw new Error();
         }
         finally {
             client.release();

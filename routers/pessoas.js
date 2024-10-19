@@ -24,7 +24,6 @@ pessoas.post('/pessoas', async (req, res) => {
 
     try {
         const row = await pessoa.insert();
-        console.log(row)
         if (!row.id) throw new Error();
 
         res.set('Location', `/pessoas/${row.id}`)
