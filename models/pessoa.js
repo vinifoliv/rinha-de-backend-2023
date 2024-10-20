@@ -76,6 +76,19 @@ class Pessoa {
             client.release();
         }
     }
+
+    static async readAll() {
+        const database = new Database();
+        const client = await database.pool.connect();
+
+        try {
+            const result = await client.query('SELECT COUNT(*) FROM pessoas');
+            return (result.rows[0]).count;  
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
 }
 
 module.exports = Pessoa;
