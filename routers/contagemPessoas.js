@@ -11,7 +11,7 @@ contagemPessoas.get('/contagem-pessoas', async (req, res) => {
         res.status(200).send(cont);
     }
     catch(error) {
-        res.status(200).send(cont);
+        res.status(200).send('0');
     }
 });
 
