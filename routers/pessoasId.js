@@ -1,11 +1,7 @@
 const express = require('express');
-const cors = require('cors');
 const Pessoa = require('../models/pessoa');
 
 const pessoasId = express.Router();
-pessoasId.use(cors({origin: '*'}));
-pessoasId.use(express.json());
-require('dotenv').config();
 
 pessoasId.get('/pessoas/:id', async (req, res) => {
     const id = req.params.id;

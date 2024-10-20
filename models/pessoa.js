@@ -50,6 +50,32 @@ class Pessoa {
             client.release();
         }
     }
+
+    static async readByTerm(termoBusca) {
+        const database = new Database();
+        const client = await database.pool.connect();
+
+        const text = `SELECT * FROM pessoas WHERE 
+            apelido ILIKE '%' || $1 || '%' OR 
+            nome ILIKE '%' || $1 || '%' OR 
+            EXISTS (
+                SELECT 1 FROM UNNEST(stack) AS item WHERE
+                $1 ILIKE item
+            )
+        `;
+        const values = [termoBusca];
+
+        try {
+            const result = await client.query(text, values);
+            return result.rows;
+        }
+        catch (error) {
+            throw new Error();
+        }
+        finally {
+            client.release();
+        }
+    }
 }
 
 module.exports = Pessoa;
