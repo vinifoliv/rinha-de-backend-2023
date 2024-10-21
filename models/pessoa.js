@@ -1,4 +1,5 @@
 const Database = require('../db');
+const database = new Database();
 
 class Pessoa {
     constructor (apelido, nome, nascimento, stack) {
@@ -9,7 +10,6 @@ class Pessoa {
     }
 
     async insert() {
-        const database = new Database();
         const client = await database.pool.connect();
 
         const text = 'INSERT INTO pessoas(apelido, nome, nascimento, stack) VALUES($1, $2, $3, $4) RETURNING id';
@@ -33,7 +33,6 @@ class Pessoa {
     }
 
     static async readById(id) {
-        const database = new Database();
         const client = await database.pool.connect();
 
         const text = 'SELECT * FROM pessoas WHERE id = $1';
@@ -52,7 +51,6 @@ class Pessoa {
     }
 
     static async readByTerm(termoBusca) {
-        const database = new Database();
         const client = await database.pool.connect();
 
         const text = `SELECT * FROM pessoas WHERE 
@@ -70,7 +68,7 @@ class Pessoa {
             return result.rows;
         }
         catch (error) {
-            throw new Error();
+            throw new Error(error);
         }
         finally {
             client.release();
@@ -78,7 +76,6 @@ class Pessoa {
     }
 
     static async readAll() {
-        const database = new Database();
         const client = await database.pool.connect();
 
         try {
