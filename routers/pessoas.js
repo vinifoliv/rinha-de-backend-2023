@@ -19,8 +19,10 @@ pessoas.post('/pessoas', async (req, res) => {
         dados.stack
     );
 
-    if (isNomeValid(pessoa.nome)) res.status(400).send();
-    if (isStackValid(pessoa.stack)) res.status(400).send();
+    if (!isNomeValid(pessoa.nome) || !isStackValid(pessoa.stack)) {
+        res.status(400).send();
+        return;
+    }
 
     try {
         const row = await pessoa.insert();
@@ -30,7 +32,7 @@ pessoas.post('/pessoas', async (req, res) => {
         res.status(201).send();
     }
     catch (error) { 
-        res.status(422).send();
+        res.status(422).send(error);
     }
 });
 
