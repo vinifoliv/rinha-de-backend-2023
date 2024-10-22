@@ -62,13 +62,13 @@ class Pessoa {
             )
         `;
         const values = [termoBusca];
-
+        
         try {
             const result = await client.query(text, values);
             return result.rows;
         }
         catch (error) {
-            throw new Error(error);
+            throw new Error();
         }
         finally {
             client.release();
@@ -83,7 +83,7 @@ class Pessoa {
             return (result.rows[0]).count;  
         }
         catch (error) {
-            throw new Error(error);
+            throw new Error();
         }
     }
 }

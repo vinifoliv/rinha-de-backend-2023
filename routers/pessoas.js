@@ -31,7 +31,8 @@ pessoas.post('/pessoas', async (req, res) => {
         res.set('Location', `/pessoas/${row.id}`)
         res.status(201).send();
     }
-    catch (error) { 
+    catch (error) {
+        console.log(error)
         res.status(422).send(error);
     }
 });
